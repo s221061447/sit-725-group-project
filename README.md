@@ -5,7 +5,7 @@
 1. [Paul Jose](https://github.com/s221061447)
 2. [Swathi Chandrasekhar](https://github.com/SwathiReddy1862)
 3. [Malik Muhammad Saqib Javed](https://github.com/javedsaqib94)
-4. Ishwari
+4. [Ishwari Bipin](https://github.com/ishwarikamat7)
 
 ### Server - NodeJS
 
