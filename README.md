@@ -10,6 +10,8 @@
 ### Server - NodeJS
 
 The backend is built using NodeJS and will run on port 8000.
+This project will use bcryptjs to hash passwords, and murmurhash3 to hash email and generate user ID.
+JWT will be used to authentication and authorization. The algorithm for key generation is ECDSA256. The repository contains a sample private and public key, but this will not be used during production deployment.
 
 ##### Installation
 
@@ -28,4 +30,5 @@ npm run dev
 3. jsonwebtoken
 4. dotenv
 5. bcryptjs
-6. nodemon (dev-dependencies)
+6. murmurhash3
+7. nodemon (dev-dependencies)

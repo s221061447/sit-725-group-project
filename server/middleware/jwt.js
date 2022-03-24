@@ -1,0 +1,61 @@
+const jwt = require("jsonwebtoken");
+const fs = require('fs');
+
+// Load key pair
+const pubKey = fs.readFileSync('./jwt-keys/ec-secp256k1-pub-key.pem');
+const privKey = fs.readFileSync('./jwt-keys/ec-secp256k1-priv-key.pem');
+
+// Validate if keys present
+if (!pubKey || !privKey) {
+    console.error("Keys for JWT not available. Exiting application...");
+    process.exit(1);
+} else {
+    console.log("Loaded keys for JWT authentication");
+}
+
+// Generate a token given JWT info
+const generateToken = (jwtInfo) => {
+    let token = jwt.sign(
+        jwtInfo.getObject(),
+        privKey,
+        {
+            algorithm: 'ES256',
+            expiresIn: '2h',
+            issuer: 'SIT725'
+        }
+    );
+    return token;
+}
+
+// Verify a JWT token
+const verifyToken = (req, res, next) => {
+    const token = req.body.token || req.query.token || req.headers["x-access-token"] || req.headers["authorization"];
+
+    if (!validateTokenFormat(token)) {
+        return res.status(403).send("A token is required for authentication");
+    }
+    try {
+        const decoded = jwt.verify(token.split(" ")[1], pubKey, { algorithms: ['ES256'], issuer: 'SIT725' });
+        req.user = decoded;
+    } catch (err) {
+        return res.status(401).send("Invalid Token");
+    }
+
+    return next();
+};
+
+const validateTokenFormat = (token) => {
+    if (!token) {
+        return false;
+    }
+
+    let parts = token.split(" ");
+    
+    if (parts.length == 2) {
+        return ((parts[0] == "Bearer") && (parts[1].length > 0));
+    } else {
+        return false;
+    }
+};
+
+module.exports = { verifyToken, generateToken };

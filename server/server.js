@@ -9,5 +9,5 @@ const { EXPRESS_PORT } = process.env;
 const port = EXPRESS_PORT;
 
 server.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+	console.log(`Server running on port ${port}`);
 });
