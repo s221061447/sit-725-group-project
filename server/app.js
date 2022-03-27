@@ -1,15 +1,17 @@
 const express = require("express");
-const authApi = require("./api/auth.js");
-const { verifyToken } = require('./middleware/jwt');
+const authApi = require("./api/auth");
+const { authorize } = require('./middleware/jwt');
+const roles = require("./util/roles")
 
 const app = express();
 app.use(express.json());
 
+// Configure routes
 app.use('/auth', authApi);
 
 // For testing. To be removed in the next feature implementation.
-app.get("/welcome", verifyToken, (req, res) => {
-    res.status(200).send("Welcome 🙌 ");
+app.get("/welcome", authorize(roles.Admin), (req, res) => {
+    res.status(200).send("Welcome 🙌");
 });
 
 // This should be the last route. Any after it won't work.
