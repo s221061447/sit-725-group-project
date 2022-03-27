@@ -3,7 +3,7 @@ const router = express.Router();
 const hash = require('../util/id-hash');
 const bcrypt = require("bcryptjs");
 const User = require("../entities/user");
-const { verifyToken, generateToken } = require('../middleware/jwt');
+const { authorize, generateToken } = require('../middleware/jwt');
 const JwtInfo = require("../entities/jwt-info");
 
 router.post('/register', async (req, res) => {
