@@ -4,20 +4,20 @@
 
 ## Models
 
-###### Admin
+##### Admin
 
 - id
 - name
 - email
 
-###### Task
+##### Task
 
 - type
 - id
 - name
 - data (Not part of the mongodb data. Data will be stored locally in the form of html template literals. This will be queried by the id under a specific folder in our application and returned to the front end)
 
-###### Organization
+##### Organization
 
 - id
 - name
@@ -27,7 +27,7 @@
 - users: [... userID]
 - tasks: [... taskID]
 
-###### Room
+##### Room
 
 - id
 - name
@@ -35,7 +35,7 @@
 - manager
 - users: [... userID]
 
-###### Manager
+##### Manager
 
 - id
 - email
@@ -43,7 +43,7 @@
 - organizationID
 - rooms: [... roomID]
 
-###### User
+##### User
 
 - id
 
@@ -82,23 +82,23 @@ A hyphen or dash will be used as the delimiter for room IDs (-)
 
 ## Flow
 
-organization -> Creates account
-Once admin approves
-organization -> Separate page to select curriculum and select tasks
-organization -> Manage users (See list of users and managers)
-organization -> View overall dashboard
+organization -> Creates account<br>
+Once admin approves<br>
+organization -> Separate page to select curriculum and select tasks<br>
+organization -> Manage users (See list of users and managers)<br>
+organization -> View overall dashboard<br>
 
-Admin -> Approve or deny organization
-Admin -> Manage Users (See list of users by role and organization)
+Admin -> Approve or deny organization<br>
+Admin -> Manage Users (See list of users by role and organization)<br>
 
-Manager -> Sign up
-Manager -> Creates room
-Manager -> Approvals page for users who's requested to join class
-Manager -> Page to list users in each room
-Manager -> Page to show progress
+Manager -> Sign up<br>
+Manager -> Creates room<br>
+Manager -> Approvals page for users who's requested to join class<br>
+Manager -> Page to list users in each room<br>
+Manager -> Page to show progress<br>
 
-User -> Sign up
-User -> List of rooms in organization -> Selects the appropriate units
-Once manager approves
-User -> Has access to content selected by organization
-User -> Page to show progress per room
+User -> Sign up<br>
+User -> List of rooms in organization -> Selects the appropriate units<br>
+Once manager approves<br>
+User -> Has access to content selected by organization<br>
+User -> Page to show progress per room<br>
