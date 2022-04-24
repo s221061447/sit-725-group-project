@@ -1,7 +1,7 @@
 const express = require("express");
-const authApi = require("./api/auth");
+const authApi = require("./controllers/auth.js");
 const { authorize } = require('./middleware/jwt');
-const roles = require("./util/roles")
+const roles = require("./util/roles");
 
 const app = express();
 app.use(express.json());
