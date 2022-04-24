@@ -1,5 +1,5 @@
 const express = require("express");
-const authApi = require("./api/auth.js");
+const authApi = require("./controllers/auth.js");
 const { verifyToken } = require('./middleware/jwt');
 
 const app = express();
