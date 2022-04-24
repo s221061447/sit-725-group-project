@@ -3,8 +3,8 @@ const router = express.Router();
 const hash = require('../util/id-hash');
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-const { verifyToken, generateToken } = require('../middleware/jwt');
 const JwtInfo = require("../models/jwt-info");
+const { authorize, generateToken } = require('../middleware/jwt');
 
 router.post('/register', async (req, res) => {
     try {
