@@ -1,10 +1,11 @@
 class JwtInfo {
-    constructor(id, first_name, last_name, email, role) {
+    constructor(id, first_name, last_name, email, role, is_active) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.role = role;
+        this.is_active = is_active;
     }
 
     getObject() {
@@ -13,7 +14,8 @@ class JwtInfo {
             first_name: this.first_name,
             last_name: this.last_name,
             email: this.email,
-            role: this.role
+            role: this.role,
+            is_active: this.is_active 
         }
     }
 }

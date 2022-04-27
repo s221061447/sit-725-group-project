@@ -10,7 +10,7 @@ app.use(express.json());
 app.use('/auth', authApi);
 
 // For testing. To be removed in the next feature implementation.
-app.get("/welcome", authorize(roles.Admin), (req, res) => {
+app.get("/welcome", authorize(roles.User), (req, res) => {
     res.status(200).send("Welcome 🙌");
 });
 

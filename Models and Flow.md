@@ -26,6 +26,7 @@
 - managers: [... managerID]
 - users: [... userID]
 - tasks: [... taskID]
+- isActive
 
 ##### Room
 
@@ -42,30 +43,22 @@
 - name
 - organizationID
 - rooms: [... roomID]
+- isActive
 
 ##### User
 
 - id
-
 - email
-
 - name
-
 - organization ID
-
 - rooms: [... roomID]
-
-- progress: [
-
-  ​	... {
-
-  ​		task-id
-
-  ​		completed (Boolean)
-
-  ​	}
-
-  ]
+- progress: [<br>
+  ​&emsp;... {<br>
+  ​		​&emsp;​&emsp;task-id<br>
+  ​		​&emsp;​&emsp;completed (Boolean)<br>
+  ​&emsp;}<br>
+  ]<br>
+- isActive
 
 #### ID Formats
 
