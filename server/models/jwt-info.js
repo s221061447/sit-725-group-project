@@ -1,22 +1,45 @@
 class JwtInfo {
-    constructor(id, first_name, last_name, email, role, is_active) {
+    constructor(id, firstName, lastName, email, organizationId, rooms, role) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.organizationId = organizationId;
+        this.rooms = rooms;
         this.role = role;
-        this.is_active = is_active;
     }
 
     getObject() {
-        return {
-            id: this.id,
-            first_name: this.first_name,
-            last_name: this.last_name,
-            email: this.email,
-            role: this.role,
-            is_active: this.is_active 
+        let jwt = {};
+
+        if (this.id != null) {
+            jwt.id = this.id;
         }
+
+        if (this.firstName != null) {
+            jwt.firstName = this.firstName;
+        }
+
+        if (this.lastName != null) {
+            jwt.lastName = this.lastName;
+        }
+
+        if (this.email != null) {
+            jwt.email = this.email;
+        }
+
+        if (this.organizationId != null) {
+            jwt.organizationId = this.organizationId;
+        }
+
+        if (this.rooms != null) {
+            jwt.rooms = this.rooms;
+        }
+
+        if (this.role != null) {
+            jwt.role = this.role;
+        }
+        return jwt;
     }
 }
 
