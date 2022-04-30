@@ -10,53 +10,49 @@ const roles = require("../util/roles");
 router.post('/register', async (req, res) => {
     try {
         // Get user input
-        const { first_name, last_name, email, role, password } = req.body;
+        const { firstName, lastName, email, role, password } = req.body;
     
         // Validate user input
-        if (!(email && password && first_name && last_name && role)) {
+        if (!(email && password && firstName && lastName && role)) {
             res.status(400).json({ message: "All inputs are required!" });
         }
 
         // Generate unique user id using murmurhash3
-        const user_id = hash.getHash(email);
-    
-        // Check if user already exist
-        const oldUser = await doesUserExist(user_id);
-    
-        if (oldUser) {
-            return res.status(409).json({ message: "User already exists. Please Login." });
-        }
+        const userId = hash.getHash(email);
 
-        // Set the is_active parameter and check if provided role is valid
-        let is_active;
+        // Check if provided role is valid and insert into correct table based on role
+        let isActive;
         switch (role) {
             case roles.Admin:
                 return res.status(403).json({ message: "Cannot register as an admin." });
             case roles.Organization:
-                is_active = false;
+                isActive = false;
                 break;
             case roles.Manager:
-                is_active = true;
+                isActive = true;
                 break;
             case roles.User:
-                is_active = true;
+                isActive = true;
+
+                // Check if user already exist
+                const oldUser = await doesUserExist(userId);
+                if (oldUser) {
+                    return res.status(409).json({ message: "User already exists. Please Login." });
+                }
+                
+                // Get encrypted password and JWT
+                const {encryptedPassword, token} = await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, null, null, role, password);
+
+                // Create user in database
+                const user = await createUser(userId, firstName, lastName, email.toLowerCase(), encryptedPassword, role, token, isActive);
+                
+                console.log(`New user signed up. User ID: ${userId}`);
+                res.status(201).json(createResponseUserObject(user.email, user.firstName, user.lastName, user.role, user.token));
                 break;
             default:
                 return res.status(403).json({ message: "Please provide a valid role." });
         }
-    
-        // Encrypt user password using bcrypt
-        const encryptedPassword = await bcrypt.hash(password, 10);
-    
-        // Create token
-        const jwtInfo = new JwtInfo(user_id, first_name, last_name, email, role, is_active);
-        const token = generateToken(jwtInfo);
-
-        // Create user in database
-        const user = await createUser(user_id, first_name, last_name, email.toLowerCase(), encryptedPassword, role, token, is_active);
         
-        console.log(`New user signed up. User ID: ${user_id}`);
-        res.status(201).json(createResponseUserObject(user.email, user.first_name, user.last_name, user.role, user.token));
     } catch (err) {
         console.error(err);
     }
@@ -65,47 +61,69 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         // Get user input
-        const { email, password } = req.body;
+        const { email, role, password } = req.body;
     
         // Validate user input
-        if (!(email && password)) {
-            res.status(400).json({ message: "Please enter both email and password!" });
+        if (!(email && role && password)) {
+            res.status(400).json({ message: "Please enter email, role, and password!" });
             return;
         }
 
         // Validate if user exist in our database
-        user_id = hash.getHash(email);
-        let user = await getUser(user_id);
-    
-        if (user && (await bcrypt.compare(password, user.password))) {
-            if (user.is_active != true) {
-                res.status(401).json({ message: "Your access has been disabled" });
-            } else{
-                // Create token
-                const jwtInfo = new JwtInfo(user.user_id, user.first_name, user.last_name, user.email, user.role, user.is_active);
-                const token = generateToken(jwtInfo);
+        let userId = hash.getHash(email);
 
-                // save user token
-                user = await updateUser(user_id, { token: token });
-
-                res.status(200).json(createResponseUserObject(user.email, user.first_name, user.last_name, user.role, user.token));
-                console.log(`User ${user_id} signed in`);
-            }
-        } else {
-            res.status(400).json({ message: "Invalid Credentials" });
+        switch (role) {
+            case roles.Admin:
+                break;
+            case roles.Organization:
+                break;
+            case roles.Manager:
+                break;
+            case roles.User:
+                user = await getUser(userId);
+                if (user && (await bcrypt.compare(password, user.password))) {
+                    if (user.isActive != true) {
+                        res.status(401).json({ message: "Your access has been disabled" });
+                    } else{
+                        // Create token
+                        const jwtInfo = new JwtInfo(userId, user.firstName, user.lastName, user.email, null, null, user.role);
+                        const token = generateToken(jwtInfo);
+        
+                        // save user token
+                        user = await updateUser(userId, { token: token });
+        
+                        res.status(200).json(createResponseUserObject(user.email, user.firstName, user.lastName, user.role, user.token));
+                        console.log(`User ${userId} signed in`);
+                    }
+                } else {
+                    res.status(400).json({ message: "Invalid Credentials" });
+                }
+            default:
+                return res.status(403).json({ message: "Please provide a valid role." });
         }
     } catch (err) {
         console.log(err);
     }
 });
 
+const getEncryptedPasswordAndJwt = async (userId, firstName, lastName, email, organizationId, rooms, role, password) => {
+    // Encrypt user password using bcrypt
+    const encryptedPassword = await bcrypt.hash(password, 10);
+            
+    // Create token
+    const jwtInfo = new JwtInfo(userId, firstName, lastName, email, organizationId, rooms, role);
+    const token = generateToken(jwtInfo);
+    
+    return {encryptedPassword, token};
+};
+
 
 // For response do not include id or password. Front-end will always query with email as ID. ID conversion will happen in the back-end. 
-const createResponseUserObject = (email, first_name, last_name, role, token) => {
+const createResponseUserObject = (email, firstName, lastName, role, token) => {
     return {
         email: email,
-        first_name: first_name,
-        last_name: last_name,
+        firstName: firstName,
+        lastName: lastName,
         role: role,
         token: token
     };

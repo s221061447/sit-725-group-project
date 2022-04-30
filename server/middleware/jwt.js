@@ -53,11 +53,6 @@ const authorize = (roles = []) => {
                 return res.status(401).json({ message: "Unauthorized" });
             }
 
-            if (req.user.is_active != true) {
-                // user is disabled
-                return res.status(401).json({ message: "Your access has been disabled" });
-            }
-
             // authentication and authorization successful
             next();
         }
