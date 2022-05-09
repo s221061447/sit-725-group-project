@@ -2,9 +2,11 @@ const express = require("express");
 const authApi = require("./controllers/auth.js");
 const { authorize } = require('./middleware/jwt');
 const roles = require("./util/roles");
+var cors = require('cors')
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Configure routes
 app.use('/auth', authApi);
