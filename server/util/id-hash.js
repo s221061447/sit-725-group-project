@@ -1,8 +1,8 @@
-const murmurhash = require('murmurhash3');
+const murmurhash = require('murmurhash')
 
 exports.getHash = function(str) {
     try {
-        let hash = murmurhash.murmur32Sync(str);
+        let hash = murmurhash.v3(str);
         if (!hash) {
             throw new Error("Error gernating hash");
         } else {
