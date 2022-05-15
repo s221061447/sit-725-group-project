@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,25 +43,26 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form action="/users/login" method="POST" name="form" class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" class="form-control form-control-user" name="email"
                                                 id="exampleInputEmail" aria-describedby="emailHelp" required
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control" style="border-radius: 25px;" required
-                                                name="select" id="select" placeholder="select">
+                                            <select class="form-control" style="border-radius: 25px;" required name="role"
+                                                id="select" placeholder="select">
                                                 <option selected disabled>
                                                     <--select role-->
                                                 </option>
                                                 <option value="admin">Admin</option>
-                                                <option value="Student/Employee">Student/Employee</option>
-                                                <option value="Teacher/Manager">Teacher/Manager</option>
+                                                <option value="organization">Organization</option>
+                                                <option value="user">User</option>
+                                                <option value="manager">Manager</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" required
+                                            <input type="password" class="form-control form-control-user" required name="password"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -71,9 +72,9 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a onclick="login();" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                         <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -90,7 +91,7 @@
                                         <a class="small" href="register.html">Create an Account!</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -110,7 +111,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <!-- <script src="js/sb-admin-2.min.js"></script> -->
 
 </body>
 

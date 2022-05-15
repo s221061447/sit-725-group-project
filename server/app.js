@@ -8,7 +8,7 @@ const expressSession = require("express-session");
 const connectMongo = require("connect-mongo");
 const { MONGODB_URI } = process.env;
 
-// const loginUserController = require("./controllers/loginUser");
+const loginUserController = require("./controllers/loginUser");
 
 const app = express();
 app.use(express.json());
