@@ -94,9 +94,10 @@ router.post('/login', async (req, res) => {
         
                         res.status(200).json(createResponseUserObject(user.email, user.firstName, user.lastName, user.role, user.token));
                         console.log(`User ${userId} signed in`);
+                        break;
                     }
                 } else {
-                    res.status(400).json({ message: "Invalid Credentials" });
+                    return res.status(400).json({ message: "Invalid Credentials" });
                 }
             default:
                 return res.status(403).json({ message: "Please provide a valid role." });
