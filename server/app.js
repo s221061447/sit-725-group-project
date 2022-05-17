@@ -21,6 +21,11 @@ app.get("/welcomeAdmin", authorize(roles.Admin), (req, res) => {
     res.status(200).send("Welcome 🙌");
 });
 
+// For testing. To be removed in the next feature implementation.
+app.get("/welcomeOrganization", authorize(roles.Organization), (req, res) => {
+    res.status(200).send("Welcome 🙌");
+});
+
 // This should be the last route. Any after it won't work.
 app.use("*", (req, res) => {
     res.status(404).json({
