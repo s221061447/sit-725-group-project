@@ -12,7 +12,12 @@ app.use(cors());
 app.use('/auth', authApi);
 
 // For testing. To be removed in the next feature implementation.
-app.get("/welcome", authorize(roles.User), (req, res) => {
+app.get("/welcomeUser", authorize(roles.User), (req, res) => {
+    res.status(200).send("Welcome 🙌");
+});
+
+// For testing. To be removed in the next feature implementation.
+app.get("/welcomeAdmin", authorize(roles.Admin), (req, res) => {
     res.status(200).send("Welcome 🙌");
 });
 

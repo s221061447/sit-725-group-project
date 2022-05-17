@@ -7,6 +7,7 @@ const { createOrganization, doesOrganizationExist, getOrganization, updateOrgani
     addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
     addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization,
     deleteOrganization } = require("../models/organization");
+const { getAdmin, updateAdmin } = require("../models/admin");
 const JwtInfo = require("../models/jwt-info");
 const { authorize, generateToken } = require('../middleware/jwt');
 const roles = require("../util/roles");
@@ -105,6 +106,20 @@ router.post('/login', async (req, res) => {
 
         switch (role) {
             case roles.Admin:
+                admin = await getAdmin(userId);
+                if (admin && (await bcrypt.compare(password, admin.password))) {
+                    // Create token
+                    const jwtInfo = new JwtInfo(userId, admin.firstName, admin.lastName, admin.email, null, null, admin.role);
+                    const token = generateToken(jwtInfo);
+    
+                    // save user token
+                    admin = await updateAdmin(userId, { token: token });
+    
+                    res.status(200).json(createResponseUserObject(admin.email, admin.firstName, admin.lastName, admin.role, admin.token));
+                    console.log(`Admin ${userId} signed in`);
+                } else {
+                    return res.status(400).json({ message: "Invalid Credentials" });
+                }
                 break;
             case roles.Organization:
                 let organization = await getOrganization(userId);
