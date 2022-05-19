@@ -5,8 +5,6 @@ const roles = require("./util/roles");
 var cors = require('cors');
 var path = require('path');
 
-// const loginUserController = require("./controllers/loginUser");
-
 const app = express();
 app.use(express.json());
 app.use(cors());
