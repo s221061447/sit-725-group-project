@@ -12,7 +12,7 @@ app.use(cors());
 // Configure routes
 app.use('/auth', authApi);
 
-app.use(express.static(path.join(__dirname,'UI/register.html')));
+app.use(express.static(path.join(__dirname,'UI')));
 
 // For testing. To be removed in the next feature implementation.
 app.get("/welcomeUser", authorize(roles.User), (req, res) => {
