@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
-const { MONGODB_URI } = process.env;
+const { MONGO_USER, MONGO_PASSWORD, MONGO_DATABASE_NAME } = process.env;
+const uri = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASSWORD + "@sit725.pidyf.mongodb.net/" + MONGO_DATABASE_NAME + "?retryWrites=true&w=majority";
 
 exports.connect = () => {
-    mongoose.connect(MONGODB_URI).then(() => {
+    mongoose.connect(uri).then(() => {
         console.log("Successfully connected to database");
     }).catch((error) => {
         console.log("Database connection failed. Exiting application...");
