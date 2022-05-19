@@ -12,17 +12,17 @@ const { MONGODB_URI } = process.env;
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 app.use(cors());
 
-app.use(
-    expressSession({
-        secret: "secret",
-        store: connectMongo.create({
-            mongoUrl: MONGODB_URI
-        })
-    })
-);
+// app.use(
+//     expressSession({
+//         secret: "secret",
+//         store: connectMongo.create({
+//             mongoUrl: MONGODB_URI
+//         })
+//     })
+// );
 
 
 // Configure routes
@@ -45,25 +45,25 @@ app.get("/welcomeOrganization", authorize(roles.Organization), (req, res) => {
     res.status(200).send("Welcome 🙌");
 });
 
-app.post("/users/login", loginUserController);
+// app.post("/users/login", loginUserController);
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, '/UI/register.html')));
 
-app.use('/register',(req,res)=>{
-    res.sendFile(__dirname+'/UI/register.html');
-})
+// app.use('/register',(req,res)=>{
+//     res.sendFile(__dirname+'/UI/register.html');
+// })
 
-app.use('/login',(req,res)=>{
-    res.sendFile(__dirname+'/UI/login.html');
-})
+// app.use('/login',(req,res)=>{
+//     res.sendFile(__dirname+'/UI/login.html');
+// })
 
-app.use('/dashboard',(req,res)=>{
-    res.sendFile(__dirname+'/UI/dashboard.html');
-})
+// app.use('/dashboard',(req,res)=>{
+//     res.sendFile(__dirname+'/UI/dashboard.html');
+// })
 
-app.use('/forgotPassword',(req,res)=>{
-    res.sendFile(__dirname+'/UI/forgot-password.html');
-})
+// app.use('/forgotPassword',(req,res)=>{
+//     res.sendFile(__dirname+'/UI/forgot-password.html');
+// })
 
 
 // This should be the last route. Any after it won't work.
