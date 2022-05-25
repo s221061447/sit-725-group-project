@@ -106,17 +106,17 @@ const removeTaskFromOrganization = async (organizationId, taskId) => {
 
 // Activate organization by setting isActive field to true
 const activateOrganization = async (organizationId) => {
-    return updateOrganization(userId, { isActive: true });
+    return updateOrganization(organizationId, { isActive: true });
 };
 
 // De-activate organization by setting isActive field to false
 const deActivateOrganization = async (organizationId) => {
-    return updateOrganization(userId, { isActive: false });
+    return updateOrganization(organizationId, { isActive: false });
 };
 
 // Delete organization by ID
 const deleteOrganization = async (organizationId) => {
-    return organizationModel.findByIdAndDelete(id);
+    return organizationModel.findByIdAndDelete(organizationId);
 }
 
 module.exports = { createOrganization, doesOrganizationExist, getOrganization, updateOrganization, getOrganizationDomain,
