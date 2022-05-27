@@ -7,6 +7,8 @@ const { createOrganization, doesOrganizationExist, getOrganization, updateOrgani
     addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
     addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization,
     deleteOrganization } = require("../models/organization");
+const { createManager, doesManagerExist, getManager, updateManager, addRoomToManager, removeRoomFromManager,
+    activatemanager, deActivateManager, deleteManager } = require("../models/manager");
 const { getAdmin, updateAdmin } = require("../models/admin");
 const JwtInfo = require("../models/jwt-info");
 const { authorize, generateToken } = require('../middleware/jwt');
@@ -61,6 +63,31 @@ router.post('/register', async (req, res) => {
                 break;
             case roles.Manager:
                 isActive = true;
+
+                // Get details from manager
+                const { organizationId } = req.body;
+                
+                // Validate user manager
+                if (!(organizationId)) {
+                    return res.status(400).json({ message: "All inputs are required!" });
+                }
+
+                // Check if manager already exist
+                const oldManager = await doesManagerExist(userId);
+                if (oldManager) {
+                    return res.status(409).json({ message: "Manager already exists. Please Login." });
+                }
+
+                // Get encrypted password and JWT
+                encryptedPassword = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, organizationId, [], role, password)).encryptedPassword;
+                token = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, organizationId, [], role, password)).token;
+                
+                // Create manager in database
+                const manager = await createManager(userId, firstName, lastName, email.toLowerCase(), encryptedPassword, role, token, organizationId, isActive);
+                
+                console.log(`New manager signed up. Manager ID: ${userId}`);
+                res.status(201).json(createResponseUserObject(manager.email, manager.firstName, manager.lastName, manager.role, manager.token));
+
                 break;
             case roles.User:
                 isActive = true;
@@ -143,7 +170,25 @@ router.post('/login', async (req, res) => {
                 }
                 break;
             case roles.Manager:
-                break;
+                let manager = await getManager(userId);
+                if (manager && (await bcrypt.compare(password, manager.password))) {
+                    if (manager.isActive != true) {
+                        res.status(401).json({ message: "Your access has been disabled" });
+                    } else{
+                        // Create token
+                        const jwtInfo = new JwtInfo(userId, manager.firstName, manager.lastName, manager.email, manager.organizationId, manager.rooms, manager.role);
+                        const token = generateToken(jwtInfo);
+        
+                        // save user token
+                        manager = await updateManager(userId, { token: token });
+        
+                        res.status(200).json(createResponseUserObject(manager.email, manager.firstName, manager.lastName, manager.role, manager.token));
+                        console.log(`Manager ${userId} signed in`);
+                        break;
+                    }
+                } else {
+                    return res.status(400).json({ message: "Invalid Credentials" });
+                }
             case roles.User:
                 let user = await getUser(userId);
                 if (user && (await bcrypt.compare(password, user.password))) {
