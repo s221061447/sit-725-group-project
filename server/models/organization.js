@@ -48,11 +48,6 @@ const getOrganization = async (id) => {
 	return organizationModel.findById(id);
 };
 
-// Get organization domain with ID
-const getOrganizationDomain = async (id) => {
-    return organizationModel.findOne({ _id: id }, 'domain');
-}
-
 // Update organization details by providing ID and the json to update with
 const updateOrganization = async (id, updateJson) => {
 	return organizationModel.findByIdAndUpdate(id, updateJson, { new: true });
@@ -140,6 +135,11 @@ const getAllOrganizationManagers = async () => {
 const getAllOrganizationTasks = async () => {
     return organizationModel.find({}, ["_id, organizationName", "tasks"]);
 };
+
+// Get organization domain with ID
+const getOrganizationDomain = async (id) => {
+    return organizationModel.findOne({ _id: id }, ["organiztionName", "domain"]);
+}
 
 // Get organization users by providing organization ID
 const getOrganizationUsers = async (id) => {
