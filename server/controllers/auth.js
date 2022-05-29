@@ -5,8 +5,9 @@ const bcrypt = require("bcryptjs");
 const { createUser, doesUserExist, getUser, updateUser } = require("../models/user");
 const { createOrganization, doesOrganizationExist, getOrganization, updateOrganization, getOrganizationDomain,
     addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
-    addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization,
-    deleteOrganization } = require("../models/organization");
+    addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization, deleteOrganization,
+    getAllOrganizationDomains, getAllOrganizationUsers, getAllOrganizationManagers, getAllOrganizationTasks, getOrganizationUsers,
+    getOrganizationManagers, getOrganizationTasks } = require("../models/organization");
 const { createManager, doesManagerExist, getManager, updateManager, addRoomToManager, removeRoomFromManager,
     activatemanager, deActivateManager, deleteManager } = require("../models/manager");
 const { getAdmin, updateAdmin } = require("../models/admin");
@@ -37,10 +38,10 @@ router.post('/register', async (req, res) => {
                 isActive = false;
 
                 // Get details from organization
-                const { domain } = req.body;
+                const { domain, organizationName } = req.body;
                 
                 // Validate user organization
-                if (!(domain)) {
+                if (!(domain && organizationName)) {
                     return res.status(400).json({ message: "All inputs are required!" });
                 }
 
@@ -51,11 +52,11 @@ router.post('/register', async (req, res) => {
                 }
 
                 // Get encrypted password and JWT
-                encryptedPassword = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, null, null, role, password)).encryptedPassword;
-                token = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, null, null, role, password)).token;
+                encryptedPassword = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, userId, null, role, password)).encryptedPassword;
+                token = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, userId, null, role, password)).token;
                 
                 // Create organization in database
-                const organization = await createOrganization(userId, firstName, lastName, email.toLowerCase(), encryptedPassword, role, token, domain, [], [], [], isActive);
+                const organization = await createOrganization(userId, firstName, lastName, organizationName, email.toLowerCase(), encryptedPassword, role, token, domain, [], [], [], isActive);
                 
                 console.log(`New organization signed up. Organization ID: ${userId}`);
                 res.status(201).json(createResponseUserObject(organization.email, organization.firstName, organization.lastName, organization.role, organization.token));
@@ -155,7 +156,7 @@ router.post('/login', async (req, res) => {
                         res.status(401).json({ message: "Your access has been disabled" });
                     } else {
                         // Create token
-                        const jwtInfo = new JwtInfo(userId, organization.firstName, organization.lastName, organization.email, null, null, organization.role);
+                        const jwtInfo = new JwtInfo(userId, organization.firstName, organization.lastName, organization.email, userId, null, organization.role);
                         const token = generateToken(jwtInfo);
                         
                         // save user token

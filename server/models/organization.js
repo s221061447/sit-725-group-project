@@ -4,6 +4,7 @@ const organizationSchema = new mongoose.Schema({
     _id: { type: String, default: null },
     firstName: { type: String, default: null },
     lastName: { type: String, default: null },
+    organizationName: { type: String },
     email: { type: String, unique: true },
     password: { type: String },
     role: { type: String },
@@ -19,11 +20,12 @@ const organizationSchema = new mongoose.Schema({
 
 const organizationModel = mongoose.model("organizations", organizationSchema);
 
-const createOrganization = async (id, firstName, lastName, email, password, role, token, domain, managers, users, tasks, isActive) => {
+const createOrganization = async (id, firstName, lastName, organizationName, email, password, role, token, domain, managers, users, tasks, isActive) => {
 	return organizationModel.create({
 		_id: id,
 		firstName: firstName,
 		lastName: lastName,
+        organizationName: organizationName,
 		email: email,
 		password: password,
 		role: role,
@@ -117,8 +119,45 @@ const deActivateOrganization = async (organizationId) => {
 // Delete organization by ID
 const deleteOrganization = async (organizationId) => {
     return organizationModel.findByIdAndDelete(organizationId);
-}
+};
+
+// Get all organization names along with domain and ID
+const getAllOrganizationDomains = async () => {
+    return organizationModel.find({}, ["_id, organizationName", "domain"]);
+};
+
+// Get all organization names along with ID of organization and users
+const getAllOrganizationUsers = async () => {
+    return organizationModel.find({}, ["_id, organizationName", "users"]);
+};
+
+// Get all organization names along with ID of organization and managers
+const getAllOrganizationManagers = async () => {
+    return organizationModel.find({}, ["_id, organizationName", "managers"]);
+};
+
+// Get all organization names along with ID of organization and tasks
+const getAllOrganizationTasks = async () => {
+    return organizationModel.find({}, ["_id, organizationName", "tasks"]);
+};
+
+// Get organization users by providing organization ID
+const getOrganizationUsers = async (id) => {
+    return organizationModel.findOne({ _id: id }, ["organizationName", "users"]);
+};
+
+// Get organization users by providing organization ID
+const getOrganizationManagers = async (id) => {
+    return organizationModel.findOne({ _id: id }, ["organizationName", "managers"]);
+};
+
+// Get organization users by providing organization ID
+const getOrganizationTasks = async (id) => {
+    return organizationModel.findOne({ _id: id }, ["organizationName", "tasks"]);
+};
 
 module.exports = { createOrganization, doesOrganizationExist, getOrganization, updateOrganization, getOrganizationDomain,
     addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
-    addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization, deleteOrganization };
+    addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization, deleteOrganization,
+    getAllOrganizationDomains, getAllOrganizationUsers, getAllOrganizationManagers, getAllOrganizationTasks, getOrganizationUsers,
+    getOrganizationManagers, getOrganizationTasks };
