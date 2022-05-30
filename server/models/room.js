@@ -44,6 +44,11 @@ const getAllRoomsInOrganization = async (organizationId) => {
     return roomModel.find({ _id: { $regex: '^' + organizationId, $options: 'i' } });
 };
 
+// Get all rooms belonging to a manager
+const getAllRoomsBelongingToManager = async (managerId) => {
+	return roomModel.find({ managerId: managerId });
+};
+
 // Update a room using an update JSON
 const updateRoom = async (id, updateJson) => {
 	return roomModel.findByIdAndUpdate(id, updateJson, { new: true });
@@ -65,4 +70,4 @@ const removeUserFromRoom = async (roomId, userId) => {
     );
 };
 
-module.exports = { createRoom, doesRoomExist, getRoom, updateRoom, addUserToRoom, removeUserFromRoom };
+module.exports = { createRoom, doesRoomExist, getRoom, getAllRooms, getAllRoomsInOrganization, getAllRoomsBelongingToManager, updateRoom, addUserToRoom, removeUserFromRoom };
