@@ -45,6 +45,11 @@ const getUser = async (id) => {
 	return userModel.findById(id);
 };
 
+// Get all the users belonging to an organization by providing organization ID
+const getAllUsersInOrganization = async (organizationId) => {
+    return await userModel.find({ organizationId: organizationId });
+};
+
 const updateUser = async (id, updateJson) => {
 	return userModel.findByIdAndUpdate(id, updateJson, { new: true });
 };
@@ -81,5 +86,5 @@ const removeRoomFromUser = async (roomId, userId) => {
     );
 };
 
-module.exports = { createUser, doesUserExist, getUser, updateUser, deleteUser, disableUser, enableUser, getAllUsers,
-	addRoomToUser, removeRoomFromUser };
+module.exports = { createUser, doesUserExist, getUser, getAllUsersInOrganization, updateUser, deleteUser, disableUser,
+	enableUser, getAllUsers, addRoomToUser, removeRoomFromUser };
