@@ -13,6 +13,7 @@ const roomSchema = new mongoose.Schema({
 
 const roomModel = mongoose.model("rooms", roomSchema);
 
+// Create a room by providing name, organizationId, and managerId
 const createRoom = async (name, organizationId, managerId) => {
 	return roomModel.create({
 		_id: organizationId.concat('-', randomAlphaNumberic.generateRandomAlphaNumeric()),
@@ -23,14 +24,27 @@ const createRoom = async (name, organizationId, managerId) => {
 	});
 };
 
+// Check to see if a room exists
 const doesRoomExist = async (id) => {
 	return roomModel.exists({ _id: id });
 };
 
+// Get room by providing room ID
 const getRoom = async (id) => {
 	return roomModel.findById(id);
 };
 
+// Get all rooms
+const getAllRooms = async () => {
+	return roomModel.find({});
+};
+
+// Get all the rooms belonging to an organization by providing organization ID
+const getAllRoomsInOrganization = async (organizationId) => {
+    return roomModel.find({ _id: { $regex: '^' + organizationId, $options: 'i' } });
+};
+
+// Update a room using an update JSON
 const updateRoom = async (id, updateJson) => {
 	return roomModel.findByIdAndUpdate(id, updateJson, { new: true });
 };
@@ -51,4 +65,4 @@ const removeUserFromRoom = async (roomId, userId) => {
     );
 };
 
-module.exports = { doesRoomExist, getRoom, updateRoom, addUserToRoom, removeUserFromRoom };
+module.exports = { createRoom, doesRoomExist, getRoom, updateRoom, addUserToRoom, removeUserFromRoom };
