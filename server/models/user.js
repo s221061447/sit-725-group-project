@@ -8,6 +8,12 @@ const userSchema = new mongoose.Schema({
     password: { type: String },
     role: { type: String },
     token: { type: String },
+	organizationId: { type: String },
+	rooms: [String],
+	progress: [{
+		taskId: String,
+		completed: Boolean
+	}],
 	isActive: { type: Boolean }
 }, {
   versionKey: false
@@ -15,7 +21,7 @@ const userSchema = new mongoose.Schema({
 
 const userModel = mongoose.model("users", userSchema);
 
-const createUser = async (id, firstName, lastName, email, password, role, token, isActive) => {
+const createUser = async (id, firstName, lastName, email, password, role, token, organizationId, isActive) => {
 	return userModel.create({
 		_id: id,
 		firstName: firstName,
@@ -24,6 +30,9 @@ const createUser = async (id, firstName, lastName, email, password, role, token,
 		password: password,
 		role: role,
 		token: token,
+		organizationId: organizationId,
+		rooms: [],
+		progress: [],
 		isActive: isActive
 	});
 };
@@ -40,4 +49,37 @@ const updateUser = async (id, updateJson) => {
 	return userModel.findByIdAndUpdate(id, updateJson, { new: true });
 };
 
-module.exports = { createUser, doesUserExist, getUser, updateUser };
+const deleteUser = async (id) => {
+	await userModel.deleteOne({ _id: id });
+};
+
+const disableUser = async (id) => {
+	return updateUser(id, { is_active: false });
+};
+
+const enableUser = async (id) => {
+	return updateUser(id, { is_active: true });
+};
+
+const getAllUsers = async () => {
+	return await userModel.find({});
+};
+
+// Add a room to the user by providing user ID and room ID
+const addRoomToUser = async (roomId, userId) => {
+    userModel.updateOne(
+        { _id: userId }, 
+        { $push: { rooms: roomId } }
+    );
+};
+
+// Remove a room from the user by providing user ID and room ID
+const removeRoomFromUser = async (roomId, userId) => {
+    userModel.updateOne(
+        { _id: userId }, 
+        { $pull: { rooms: { $eq: roomId } } }
+    );
+};
+
+module.exports = { createUser, doesUserExist, getUser, updateUser, deleteUser, disableUser, enableUser, getAllUsers,
+	addRoomToUser, removeRoomFromUser };

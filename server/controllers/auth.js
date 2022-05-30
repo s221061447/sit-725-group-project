@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const hash = require('../util/id-hash');
 const bcrypt = require("bcryptjs");
-const { createUser, doesUserExist, getUser, updateUser } = require("../models/user");
+const { createUser, doesUserExist, getUser, updateUser, deleteUser, disableUser, enableUser, getAllUsers, addRoomToUser,
+    removeRoomFromUser } = require("../models/user");
 const { createOrganization, doesOrganizationExist, getOrganization, updateOrganization, getOrganizationDomain,
     addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
     addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization, deleteOrganization,
@@ -17,7 +18,7 @@ const roles = require("../util/roles");
 
 router.post('/register', async (req, res) => {
     try {
-        let isActive, encryptedPassword, token;
+        let isActive, encryptedPassword, token, organizationId;
 
         // Get user input
         const { firstName, lastName, email, role, password } = req.body;
@@ -66,7 +67,7 @@ router.post('/register', async (req, res) => {
                 isActive = true;
 
                 // Get details from manager
-                const { organizationId } = req.body;
+                organizationId = req.body.organizationId;
                 
                 // Validate user manager
                 if (!(organizationId)) {
@@ -92,6 +93,14 @@ router.post('/register', async (req, res) => {
                 break;
             case roles.User:
                 isActive = true;
+                
+                // Get details from user
+                organizationId = req.body.organizationId;
+                
+                // Validate user organizationId present or not
+                if (!(organizationId)) {
+                    return res.status(400).json({ message: "All inputs are required!" });
+                }
 
                 // Check if user already exist
                 const oldUser = await doesUserExist(userId);
@@ -100,11 +109,11 @@ router.post('/register', async (req, res) => {
                 }
                 
                 // Get encrypted password and JWT
-                encryptedPassword = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, null, null, role, password)).encryptedPassword;
-                token = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, null, null, role, password)).token;
+                encryptedPassword = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, organizationId, [], role, password)).encryptedPassword;
+                token = (await getEncryptedPasswordAndJwt(userId, firstName, lastName, email, organizationId, [], role, password)).token;
 
                 // Create user in database
-                const user = await createUser(userId, firstName, lastName, email.toLowerCase(), encryptedPassword, role, token, isActive);
+                const user = await createUser(userId, firstName, lastName, email.toLowerCase(), encryptedPassword, role, token, organizationId, isActive);
                 
                 console.log(`New user signed up. User ID: ${userId}`);
                 res.status(201).json(createResponseUserObject(user.email, user.firstName, user.lastName, user.role, user.token));
@@ -197,7 +206,7 @@ router.post('/login', async (req, res) => {
                         res.status(401).json({ message: "Your access has been disabled" });
                     } else{
                         // Create token
-                        const jwtInfo = new JwtInfo(userId, user.firstName, user.lastName, user.email, null, null, user.role);
+                        const jwtInfo = new JwtInfo(userId, user.firstName, user.lastName, user.email, user.organizationId, user.rooms, user.role);
                         const token = generateToken(jwtInfo);
         
                         // save user token
