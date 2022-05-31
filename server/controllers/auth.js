@@ -2,18 +2,12 @@ const express = require('express');
 const router = express.Router();
 const hash = require('../util/id-hash');
 const bcrypt = require("bcryptjs");
-const { createUser, doesUserExist, getUser, updateUser, deleteUser, disableUser, enableUser, getAllUsers, addRoomToUser,
-    removeRoomFromUser } = require("../models/user");
-const { createOrganization, doesOrganizationExist, getOrganization, updateOrganization, getOrganizationDomain,
-    addUserToOrganization, removeUserFromOrganization, addManagerToOrganization, removeManagerFromOrganization,
-    addTaskToOrganization, removeTaskFromOrganization, activateOrganization, deActivateOrganization, deleteOrganization,
-    getAllOrganizationDomains, getAllOrganizationUsers, getAllOrganizationManagers, getAllOrganizationTasks, getOrganizationUsers,
-    getOrganizationManagers, getOrganizationTasks } = require("../models/organization");
-const { createManager, doesManagerExist, getManager, updateManager, addRoomToManager, removeRoomFromManager,
-    activatemanager, deActivateManager, deleteManager } = require("../models/manager");
+const { createUser, doesUserExist, getUser, updateUser } = require("../models/user");
+const { createOrganization, doesOrganizationExist, getOrganization, updateOrganization } = require("../models/organization");
+const { createManager, doesManagerExist, getManager, updateManager } = require("../models/manager");
 const { getAdmin, updateAdmin } = require("../models/admin");
 const JwtInfo = require("../models/jwt-info");
-const { authorize, generateToken } = require('../middleware/jwt');
+const { generateToken } = require('../middleware/jwt');
 const roles = require("../util/roles");
 
 router.post('/register', async (req, res) => {
