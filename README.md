@@ -32,3 +32,9 @@ npm run dev
 5. bcryptjs
 6. murmurhash3
 7. nodemon (dev-dependencies)
+
+
+##### How to Use Docker image to run on any environment 
+
+Pull command to your terminal to pull the image down and use that image in any envrionment
+        "docker pull javedsaqib/sit-725-group-project"
