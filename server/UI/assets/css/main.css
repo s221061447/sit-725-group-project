@@ -175,6 +175,7 @@ i.metismenu-icon{
     transform: translate(0%, -50%);
     font-size: initial;
     border: none;
+    background: none;
   }
 
   .acceptButton {
@@ -182,7 +183,7 @@ i.metismenu-icon{
       color: green;   
   }
 
-  .rejectButton {
+  .rejectButton .removeButton{
       color: red;
   }
   
