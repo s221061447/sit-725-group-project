@@ -10,7 +10,7 @@
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="">
-<link href="./assets/css/customCSS.css" rel="stylesheet">
+<link href="./assets/css/main.css" rel="stylesheet">
 <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="assets/logo/logo-coved-removedbg.png">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -99,6 +99,7 @@
                             <button class="tablinks" onclick="openTab(event, 'Tab1')">Student/Employee Progress</button>
                             <button class="tablinks" onclick="openTab(event, 'Tab2')">Approvals</button>
                             <button class="tablinks" onclick="openTab(event, 'Tab3')">Students/Employees</button>
+                            <button class="tablinks" onclick="openTab(event, 'Tab4')">Manage Classrooms</button>
                           </div>
                           
                           <!-- Tab content -->
@@ -162,16 +163,30 @@
                             <p>Click on the "Remove" to the right of the list to remove the student/employee.</p>
                             
                             <ol>
-                                <li>Adele<button class="actionButton">Remove</button></li>
-                                <li>Agnes<button class="actionButton">Remove</button></li>
+                                <li>Adele<button class="actionButton removeButton">Remove</button></li>
+                                <li>Agnes<button class="actionButton removeButton">Remove</button></li>
                             
-                                <li>Billy<button class="actionButton">Remove</button></li>
-                                <li>Bob<button class="actionButton">Remove</button></li>
+                                <li>Billy<button class="actionButton removeButton">Remove</button></li>
+                                <li>Bob<button class="actionButton removeButton">Remove</button></li>
                             
-                                <li>Calvin<button class="actionButton">Remove</button></li>
-                                <li>Christina<button class="actionButton">Remove</button></li>
-                                <li>Cindy<button class="actionButton">Remove</button></li>
+                                <li>Calvin<button class="actionButton removeButton">Remove</button></li>
+                                <li>Christina<button class="actionButton removeButton">Remove</button></li>
+                                <li>Cindy<button class="actionButton removeButton">Remove</button></li>
                             </ol>
+                          </div>
+
+                          <div id="Tab4" class="tabcontent">
+                            <h2>Classrooms</h2>
+                            <p>Click on the "Remove" to the right of the list to remove the Classroom.</p>
+                            
+                            <ol>
+                                <li>Class 1<button class="actionButton removeButton">Remove</button></li>
+                                <li>Class 2<button class="actionButton removeButton">Remove</button></li>
+                            
+                                <li>Class 3<button class="actionButton removeButton">Remove</button></li>
+                                <li>Class 4<button class="actionButton removeButton">Remove</button></li>
+                            </ol>
+                            <button type="button" class="btn btn-info disabled">Create Classroom</button>
                           </div>
                     </div>
                 </div>
@@ -247,16 +262,9 @@ var i;
 
 for (i = 0; i < actionButton.length; i++) {
     actionButton[i].addEventListener("click", function() {
-    // if (this.innerHTML == "Accept") {
-    //     this.parentElement.innerHTML = "Student request accepted."
-    // } else if (this.innerHTML == "Reject") {
-    //     this.parentElement.innerHTML = "Student request rejected."
-    // } else {
-    //     this.parentElement.innerHTML = "Student removed from the room."
-    // }
     this.parentElement.style.display = 'none';
   });
 }
-    </script>
-    </body>
+</script>
+</body>
 </html>
