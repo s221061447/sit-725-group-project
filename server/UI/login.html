@@ -47,20 +47,28 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp" required name = "email"
-                                                placeholder="Enter Email Address...">
-                                        </div>
-                                        <div class="form-group">
                                             <select class="form-control" style="border-radius: 25px;" required
-                                                name="select" id="select" placeholder="select">
+                                                name="select" id="select" placeholder="select" onchange="checkOrganisation(this.value)">
                                                 <option selected disabled>
                                                     <--select role-->
                                                 </option>
                                                 <option value="admin">Admin</option>
-                                                <option value="Student/Employee">Student/Employee</option>
-                                                <option value="Teacher/Manager">Teacher/Manager</option>
+                                                <option value="user">Student/Employee</option>
+                                                <option value="manager">Teacher/Manager</option>
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control hide" style="border-radius: 25px; display:none" required
+                                                name="select" id="selectOrganisation" placeholder="select" onchange="setDomain(this.value)">
+                                                <option selected disabled>
+                                                    <--select organisation-->
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp" required name = "email"
+                                                placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" required name = "password"
@@ -138,6 +146,57 @@
             })
             .catch(error => console.error(error));
     }
+        var select = document.getElementById("selectOrganisation");
+        var email = document.getElementById("exampleInputEmail");
+        var organisations = [
+    {
+        id: 1,
+        name: "ABC",
+        domain: "@abc.com"
+    },
+    {
+        id: 2,
+        name: "XYZ",
+        domain: "@xyz.com"
+    },
+    {
+        id: 3,
+        name: "LMN",
+        domain: "@lmn.com"
+    },
+    {
+        id: 4,
+        name: "DEF",
+        domain: "@def.com"
+    },
+    {
+        id: 5,
+        name: "PQR",
+        domain: "@pqr.com"
+    }
+]
+    function checkOrganisation(value) {
+        if ((value == "user" || value == "manager") && select.length <= 1) {
+            select.style.removeProperty("display");
+            getOrganisationList();
+        }
+    }
+
+    function setDomain(data) {
+        let obj = organisations.find(o => o.id === parseInt(data));
+        email.value = obj.domain;
+    }
+ 
+        // Main function
+        function getOrganisationList() {
+            for (var i = 0; i < organisations.length; i++) {
+                var optn = organisations[i];
+                var el = document.createElement("option");
+                el.textContent = optn.name;
+                el.value = optn.id;
+                select.appendChild(el);
+            }
+        }
 </script>
 
 </html>
