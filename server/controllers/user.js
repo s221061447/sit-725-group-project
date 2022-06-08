@@ -86,7 +86,7 @@ router.delete('/deleteUser/:id', authorize(roles.Admin), async (req, res) => {
     }
 });
 
-router.get('/disableUser/:id', authorize(roles.Admin), async (req, res) => {
+router.patch('/disableUser/:id', authorize(roles.Admin), async (req, res) => {
     try {
         const id = req.params.id;
         const result = await disableUser(id);
@@ -101,7 +101,7 @@ router.get('/disableUser/:id', authorize(roles.Admin), async (req, res) => {
     }
 });
 
-router.get('/enableUser/:id', authorize(roles.Admin), async (req, res) => {
+router.patch('/enableUser/:id', authorize(roles.Admin), async (req, res) => {
     try {
         const id = req.params.id;
         const result = await enableUser(id);
@@ -116,7 +116,7 @@ router.get('/enableUser/:id', authorize(roles.Admin), async (req, res) => {
     }
 });
 
-router.get('/addRoomToUser', authorize(roles.Manager), async (req, res) => {
+router.patch('/addRoomToUser', authorize(roles.Manager), async (req, res) => {
     try {
         const roomId = req.query.roomId;
         const userId = req.query.userId;
@@ -135,7 +135,7 @@ router.get('/addRoomToUser', authorize(roles.Manager), async (req, res) => {
     }
 });
 
-router.get('/removeRoomFromUser', authorize(roles.Manager), async (req, res) => {
+router.patch('/removeRoomFromUser', authorize(roles.Manager), async (req, res) => {
     try {
         const roomId = req.query.roomId;
         const userId = req.query.userId;
