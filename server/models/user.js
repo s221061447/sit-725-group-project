@@ -45,9 +45,13 @@ const getUser = async (id) => {
 	return userModel.findById(id);
 };
 
+const getUserWithoutPassword = async (id) => {
+	return userModel.findById(id, { password: 0 });
+};
+
 // Get all the users belonging to an organization by providing organization ID
 const getAllUsersInOrganization = async (organizationId) => {
-    return await userModel.find({ organizationId: organizationId });
+    return await userModel.find({ organizationId: organizationId }, { password: 0 });
 };
 
 const updateUser = async (id, updateJson) => {
@@ -59,20 +63,20 @@ const deleteUser = async (id) => {
 };
 
 const disableUser = async (id) => {
-	return updateUser(id, { is_active: false });
+	return updateUser(id, { isActive: false });
 };
 
 const enableUser = async (id) => {
-	return updateUser(id, { is_active: true });
+	return updateUser(id, { isActive: true });
 };
 
 const getAllUsers = async () => {
-	return await userModel.find({});
+	return await userModel.find({}, { password: 0 });
 };
 
 // Add a room to the user by providing user ID and room ID
 const addRoomToUser = async (roomId, userId) => {
-    userModel.updateOne(
+    await userModel.updateOne(
         { _id: userId }, 
         { $push: { rooms: roomId } }
     );
@@ -80,11 +84,11 @@ const addRoomToUser = async (roomId, userId) => {
 
 // Remove a room from the user by providing user ID and room ID
 const removeRoomFromUser = async (roomId, userId) => {
-    userModel.updateOne(
+    await userModel.updateOne(
         { _id: userId }, 
         { $pull: { rooms: { $eq: roomId } } }
     );
 };
 
-module.exports = { createUser, doesUserExist, getUser, getAllUsersInOrganization, updateUser, deleteUser, disableUser,
+module.exports = { createUser, doesUserExist, getUser, getUserWithoutPassword, getAllUsersInOrganization, updateUser, deleteUser, disableUser,
 	enableUser, getAllUsers, addRoomToUser, removeRoomFromUser };

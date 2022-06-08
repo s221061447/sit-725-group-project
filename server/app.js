@@ -1,5 +1,6 @@
 const express = require("express");
-const authApi = require("./controllers/auth.js");
+const authApi = require("./controllers/auth");
+const userApi = require("./controllers/user");
 const { authorize } = require('./middleware/jwt');
 const roles = require("./util/roles");
 var cors = require('cors');
@@ -11,6 +12,7 @@ app.use(cors());
 
 // Configure routes
 app.use('/auth', authApi);
+app.use('/user', userApi);
 
 app.use(express.static(path.join(__dirname,'UI')));
 
