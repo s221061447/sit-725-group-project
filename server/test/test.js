@@ -110,7 +110,7 @@ var request = require("request");
 
     //admin in login
     describe("Admin", function(done){
-        var url_admin = "";
+        var url_admin = "https://localhost:8000/login.html";
         it("should return 200 as a response. admin signed in", function(done){
             request(url_admin, function(error, response, body){
                 expect(response.statusCode).to.equal(200);
@@ -128,7 +128,7 @@ var request = require("request");
     
     // organisation in login
     describe("Organisation", function(done){
-        var url_org = "";
+        var url_org = "https://localhost:8000/login.html";
         it("should return 200 as a response. organisation signed in", function(done){
             request(url_org, function(error, response, body){
                 expect(response.statusCode).to.equal(200);
@@ -146,7 +146,7 @@ var request = require("request");
 
     // manager in login
     describe("Manager", function(done){
-        var url_manager = "";
+        var url_manager = "https://localhost:8000/login.html";
         
         it("should return 200 as a response. manager signed in", function(done){
             request(url_manager, function(error, response, body){
@@ -166,7 +166,7 @@ var request = require("request");
 
     //user in login
     describe("User", function(done){
-        var url_user = "";
+        var url_user = "https://localhost:8000/login.html";
         
         it("should return 200 as a response. user signed in", function(done){
             request(url_user, function(error, response, body){
