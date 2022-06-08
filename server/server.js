@@ -4,7 +4,9 @@ const app = require("./app");
 require("./mongo/init-connection").connect();
 const {sendEmail} = require("./util/mail-client");
 
-sendEmail("test", "covedt12022@gmail.com", "You are signed in!");
+// Test email
+// sendEmail("test", "covedt12022@gmail.com", "Test Email!");
+// Successfully sent mail to receipient email.
 
 const server = http.createServer(app);
 
