@@ -9,7 +9,7 @@ var request = require("request");
 
     //admin in registration
     describe("Admin", function(done){
-        var url_admin = "";
+        var url_admin = "http://localhost:8000/register.html";
         it("cant register as an admin", function(done){
             request(url_admin, function(error, response, body){
                 expect(response.statusCode).to.equal(403);
