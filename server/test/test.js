@@ -5,11 +5,11 @@ var request = require("request");
  describe("  registration", function(){
 
     
-    var url = "http://localhost:8000/register.html";
+    var url = "http://localhost:8000/auth/register";
 
     //admin in registration
     describe("Admin", function(done){
-        var url_admin = "http://localhost:8000/register.html";
+        var url_admin = "http://localhost:8000/auth/register";
         it("cant register as an admin", function(done){
             request(url_admin, function(error, response, body){
                 expect(response.statusCode).to.equal(403);
@@ -20,7 +20,7 @@ var request = require("request");
     
     // organisation in registration
     describe("Organisation", function(done){
-        var url_org = "http://localhost:8000/register.html";
+        var url_org = "http://localhost:8000/auth/register";
         it("should return status 201 as response when new organisation signs up", function(done) {
             request(url, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
@@ -47,7 +47,7 @@ var request = require("request");
 
     // manager in registration
     describe("Manager", function(done){
-        var url_manager = "http://localhost:8000/register.html";
+        var url_manager = "http://localhost:8000/auth/register";
         it("should return status 201 as response when new manager role signs up", function(done) {
             request(url_manager, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
@@ -75,7 +75,7 @@ var request = require("request");
 
     //user in registration
     describe("User", function(done){
-        var url_user = "http://localhost:8000/register.html";
+        var url_user = "http://localhost:8000/auth/register";
         it("should return status 201 as response when new user role signs up", function(done) {
             request(url_user, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
@@ -106,11 +106,11 @@ var request = require("request");
  describe(" login registration", function(){
 
     
-    var url = "https://localhost:8000/login.html";
+    var url = "http://localhost:8000/auth/login";
 
     //admin in login
     describe("Admin", function(done){
-        var url_admin = "https://localhost:8000/login.html";
+        var url_admin = "http://localhost:8000/auth/login";
         it("should return 200 as a response. admin signed in", function(done){
             request(url_admin, function(error, response, body){
                 expect(response.statusCode).to.equal(200);
@@ -128,7 +128,7 @@ var request = require("request");
     
     // organisation in login
     describe("Organisation", function(done){
-        var url_org = "https://localhost:8000/login.html";
+        var url_org = "http://localhost:8000/auth/login";
         it("should return 200 as a response. organisation signed in", function(done){
             request(url_org, function(error, response, body){
                 expect(response.statusCode).to.equal(200);
@@ -146,7 +146,7 @@ var request = require("request");
 
     // manager in login
     describe("Manager", function(done){
-        var url_manager = "https://localhost:8000/login.html";
+        var url_manager = "http://localhost:8000/auth/login";
         
         it("should return 200 as a response. manager signed in", function(done){
             request(url_manager, function(error, response, body){
@@ -166,7 +166,7 @@ var request = require("request");
 
     //user in login
     describe("User", function(done){
-        var url_user = "https://localhost:8000/login.html";
+        var url_user = "http://localhost:8000/auth/login";
         
         it("should return 200 as a response. user signed in", function(done){
             request(url_user, function(error, response, body){
