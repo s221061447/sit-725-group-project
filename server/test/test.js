@@ -20,7 +20,7 @@ var request = require("request");
     
     // organisation in registration
     describe("Organisation", function(done){
-        var url_org = "";
+        var url_org = "http://localhost:8000/register.html";
         it("should return status 201 as response when new organisation signs up", function(done) {
             request(url, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
@@ -47,7 +47,7 @@ var request = require("request");
 
     // manager in registration
     describe("Manager", function(done){
-        var url_manager = "";
+        var url_manager = "http://localhost:8000/register.html";
         it("should return status 201 as response when new manager role signs up", function(done) {
             request(url_manager, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
@@ -75,7 +75,7 @@ var request = require("request");
 
     //user in registration
     describe("User", function(done){
-        var url_user = "";
+        var url_user = "http://localhost:8000/register.html";
         it("should return status 201 as response when new user role signs up", function(done) {
             request(url_user, function(error, response, body) {
                 expect(response.statusCode).to.equal(201);
