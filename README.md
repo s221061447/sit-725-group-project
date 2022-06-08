@@ -32,3 +32,12 @@ npm run dev
 5. bcryptjs
 6. murmurhash3
 7. nodemon (dev-dependencies)
+
+
+
+#### Use our project Docker Image
+
+1. install docker in OS
+2. Create container in your Docker and pull and run that image on it 
+3. pull image from dockerHub "docker pull javedsaqib/sit-725-group-project"
+3. 
