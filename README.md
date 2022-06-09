@@ -34,7 +34,14 @@ npm run dev
 7. nodemon (dev-dependencies)
 
 
+
 ##### How to Use Docker image to run on any environment 
 
-Pull command to your terminal to pull the image down and use that image in any envrionment
-        "docker pull javedsaqib/sit-725-group-project"
+#### Pull command to your terminal to pull the image down and use that image in any envrionment  "docker pull javedsaqib/sit-725-group-project" 
+
+#### Use our project Docker Image
+
+1. install docker in OS
+2. Create container in your Docker and pull and run that image on it 
+3. pull image from dockerHub "docker pull javedsaqib/sit-725-group-project"
+

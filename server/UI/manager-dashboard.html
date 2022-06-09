@@ -1,0 +1,270 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="">
+<link href="./assets/css/main.css" rel="stylesheet">
+<link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="assets/logo/logo-coved-removedbg.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <div>
+                    <img src="assets/logo/logo-coved-removedbg.png" height="50px" width="70px" alt="App-Logo"/>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <img src="assets/logo/logo-coved-removedbg.png" height="50px" width="70px" alt="App-Logo"/>
+                </div>
+            </div> 
+            <div class="app-header__content">
+                <div class="app-header-left">
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="dropdown">
+                                        <button onclick="myFunction()" class="dropbtn">
+                                            <i class="metismenu-icon pe-7s-user"></i>
+                                        </button>
+                                        <div id="myDropdown" class="dropdown-content">
+                                          <a href="#">Account</a>
+                                          <a href="#">Logout</a>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="app-main">
+                <div> 
+                    <div id="mySidebar" class="sidebar" onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
+                        <div>
+                            <ul class="vertical-nav-menu">
+                                <li class="app-sidebar__heading">
+                                    <a href="#" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-menu"></i>
+                                        Course Units
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-angle-right"></i>
+                                        SIT725
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-angle-right"></i>
+                                        SIT726
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-angle-right"></i>
+                                        SIT719
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-angle-right"></i>
+                                        SIT718
+                                    </a>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="main">
+                        <div class="tab">
+                            <button class="tablinks" onclick="openTab(event, 'Tab1')">Student/Employee Progress</button>
+                            <button class="tablinks" onclick="openTab(event, 'Tab2')">Approvals</button>
+                            <button class="tablinks" onclick="openTab(event, 'Tab3')">Students/Employees</button>
+                            <button class="tablinks" onclick="openTab(event, 'Tab4')">Manage Classrooms</button>
+                          </div>
+                          
+                          <!-- Tab content -->
+                          <div id="Tab1" class="tabcontent">
+                            <ol>
+                                <li>Adele
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="50"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                            50% Complete
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>Agnes
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                                            40% Complete
+                                        </div>
+                                    </div>
+                                </li>
+                            
+                                <li>Billy
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="70"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                            70% Complete
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>Bob
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="30"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:30%">
+                                            30% Complete
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                          </div>
+                          
+                          <div id="Tab2" class="tabcontent">
+                            <h2>Approvals</h2>
+                            <p>Click on "Accept" to accept the student/employee into the room and click on "Reject" to reject the request from the student/employee.</p>
+                            
+                            <ol>
+                                <li>Adele<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                                <li>Agnes<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                            
+                                <li>Billy<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                                <li>Bob<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                            
+                                <li>Calvin<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                                <li>Christina<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                                <li>Cindy<button class="actionButton acceptButton">Accept</button><button class="actionButton rejectButton">Reject</button></li>
+                            </ol>
+                          </div>
+                          
+                          <div id="Tab3" class="tabcontent">
+                            <h2>Students/Employees</h2>
+                            <p>Click on the "Remove" to the right of the list to remove the student/employee.</p>
+                            
+                            <ol>
+                                <li>Adele<button class="actionButton removeButton">Remove</button></li>
+                                <li>Agnes<button class="actionButton removeButton">Remove</button></li>
+                            
+                                <li>Billy<button class="actionButton removeButton">Remove</button></li>
+                                <li>Bob<button class="actionButton removeButton">Remove</button></li>
+                            
+                                <li>Calvin<button class="actionButton removeButton">Remove</button></li>
+                                <li>Christina<button class="actionButton removeButton">Remove</button></li>
+                                <li>Cindy<button class="actionButton removeButton">Remove</button></li>
+                            </ol>
+                          </div>
+
+                          <div id="Tab4" class="tabcontent">
+                            <h2>Classrooms</h2>
+                            <p>Click on the "Remove" to the right of the list to remove the Classroom.</p>
+                            
+                            <ol>
+                                <li>Class 1<button class="actionButton removeButton">Remove</button></li>
+                                <li>Class 2<button class="actionButton removeButton">Remove</button></li>
+                            
+                                <li>Class 3<button class="actionButton removeButton">Remove</button></li>
+                                <li>Class 4<button class="actionButton removeButton">Remove</button></li>
+                            </ol>
+                            <button type="button" class="btn btn-info disabled">Create Classroom</button>
+                          </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+     <!-- Bootstrap core JavaScript-->
+     <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+     <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+     <!-- Core plugin JavaScript-->
+     <script type="text/javascript" src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script>
+        var mini = true;
+
+        function toggleSidebar() {
+            if (mini) {
+                console.log("opening sidebar");
+                document.getElementById("mySidebar").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+                this.mini = false;
+            } else {
+                console.log("closing sidebar");
+                document.getElementById("mySidebar").style.width = "35px";
+                document.getElementById("main").style.marginLeft = "35px";
+                this.mini = true;
+            }
+        }
+
+        /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+    debugger;
+  if (!(event.target.matches('.dropbtn') || event.target.matches('.metismenu-icon'))) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function openTab(evt, tabs) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabs).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+var actionButton = document.getElementsByClassName("actionButton");
+var i;
+
+for (i = 0; i < actionButton.length; i++) {
+    actionButton[i].addEventListener("click", function() {
+    this.parentElement.style.display = 'none';
+  });
+}
+</script>
+</body>
+</html>

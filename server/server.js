@@ -2,6 +2,11 @@ require("dotenv").config();
 const http = require("http");
 const app = require("./app");
 require("./mongo/init-connection").connect();
+const {sendEmail} = require("./util/mail-client");
+
+// Test email
+// sendEmail("test", "covedt12022@gmail.com", "Test Email!");
+// Successfully sent mail to receipient email.
 
 const server = http.createServer(app);
 
